@@ -22,9 +22,35 @@ class PropertyService {
     }
 
     async deleteProperty(id) {
-        await Property.destroy(id)
+        await Property.destroy({where: {id}})
         return true
     }
+
+    async findFavoritesByUser(userId) {
+        const favorites = await Favorites.findAll({ where: { userId } });
+        const ids = favorites.map((f) => f.propertyId);
+        if (ids.length === 0) return [];
+        return Property.findAll({ where: { id: ids } });
+      }
+    
+      async addFavorite(userId, propertyId) {
+    
+        const property = await Property.findByPk(propertyId);
+        if (!property) {
+          throw new Error('Недвижимость не найдена');
+        }
+    
+       
+        const [fav] = await Favorites.findOrCreate({
+          where: { userId, propertyId },
+        });
+        return fav;
+      }
+    
+      async removeFavorite(userId, propertyId) {
+        await Favorites.destroy({ where: { userId, propertyId } });
+        return true;
+      }
 }
 
 module.exports = PropertyService

@@ -17,7 +17,18 @@ function Navbar({ user, logout }) {
         </>
       )}
       {!!user && (
+
         <>
+        {user.type === "landlord" && (
+            <Button as={Link} to="/landlord" className="me-2">
+              Мои объявления
+            </Button>
+          )}
+          {user.type === "tenant" && (
+            <Button as={Link} to="/locataire" className="me-2">
+              Поиск жилья
+            </Button>
+          )}
           <Button onClick={logout}>Выйти</Button>
         </>
       )}

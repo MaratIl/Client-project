@@ -70,6 +70,42 @@ class PropertyController {
       res.sendStatus(401);
     }
   };
+
+  getFavorites = async (req, res) => {
+    try {
+      const { user } = res.locals; 
+      const favorites = await this.propertyService.findFavoritesByUser(user.id);
+      return res.status(200).json(favorites);
+    } catch (error) {
+      console.log(error);
+      res.sendStatus(401);
+    }
+  };
+
+ 
+  addToFavorites = async (req, res) => {
+    try {
+      const { user } = res.locals;
+      const { id } = req.params;
+      await this.propertyService.addFavorite(user.id, id);
+      return res.sendStatus(201);
+    } catch (error) {
+      console.log(error);
+      res.sendStatus(401);
+    }
+  };
+
+  removeFromFavorites = async (req, res) => {
+    try {
+      const { user } = res.locals;
+      const { id } = req.params;
+      await this.propertyService.removeFavorite(user.id, id);
+      return res.sendStatus(204);
+    } catch (error) {
+      console.log(error);
+      res.sendStatus(401);
+    }
+  };
 }
 
 module.exports = PropertyController;

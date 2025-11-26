@@ -95,7 +95,7 @@ function Router() {
             element={
               <ProtectedRoute
                 isAllowed={!!user && user.type === "landlord"}
-                redirectTo="/login"
+                redirectTo="/"
               >
                 <LandlordPage />
               </ProtectedRoute>
@@ -107,7 +107,7 @@ function Router() {
             element={
               <ProtectedRoute
                 isAllowed={!!user && user.type === "tenant"}
-                redirectTo="/login"
+                redirectTo="/"
               >
                 <LocatairePage />
               </ProtectedRoute>

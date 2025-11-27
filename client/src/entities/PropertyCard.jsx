@@ -1,6 +1,9 @@
 import { Card, ListGroup } from "react-bootstrap";
 
 function PropertyCard({ property }) {
+    const handleClick = () => {
+    onCardClick(property.id); 
+  };
   return (
     <>
       <Card style={{ width: "18rem" }}>

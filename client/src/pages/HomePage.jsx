@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import axios from "axios";
 import PropertyCard from "../entities/PropertyCard";
+import { useNavigate } from "react-router";
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 
@@ -10,11 +11,14 @@ function HomePage() {
   const mapRef = useRef(null);
   const mapInstanceRef = useRef(null);
   const isInitializingRef = useRef(false);
+  const navigate = useNavigate()
 
   useEffect(() => {
     axios.get("/api/property").then(({ data }) => setProperties(data));
   }, []);
-
+  const handleCardClick = (propertyId) => {
+    navigate(`api/card/${propertyId}`); // Переход на страницу карточки
+  };
   // Загрузка скрипта Яндекс.Карт API и инициализация карты
   useEffect(() => {
     // Проверяем, не создана ли уже карта или не идет ли инициализация

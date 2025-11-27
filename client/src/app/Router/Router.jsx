@@ -7,7 +7,7 @@ import LoginPage from "../../pages/LoginPage";
 import HomePage from "../../pages/HomePage";
 import LandlordPage from "../../pages/LandlordPage";
 import LocatairePage from "../../pages/LocatairePage";
-
+import CardPage from "../../pages/CradsPage";
 import { setAccessToken } from "../../shared/axiosinstance";
 import ProtectedRoute from "../../shared/ProtectedRoute";
 import Layout from "../Layout";
@@ -65,14 +65,11 @@ function Router() {
       <Routes>
         <Route element={<Layout user={user} logout={logout} />}>
           <Route path="/" element={<HomePage user={user} />} />
-
+          <Route path="/cards/:id" element={<CardPage />} />
           <Route
             path="/registration"
             element={
-              <ProtectedRoute
-                isAllowed={!user}
-                redirectTo={redirectAfterAuth}
-              >
+              <ProtectedRoute isAllowed={!user} redirectTo={redirectAfterAuth}>
                 <Registration registration={registration} />
               </ProtectedRoute>
             }
@@ -81,10 +78,7 @@ function Router() {
           <Route
             path="/login"
             element={
-              <ProtectedRoute
-                isAllowed={!user}
-                redirectTo={redirectAfterAuth}
-              >
+              <ProtectedRoute isAllowed={!user} redirectTo={redirectAfterAuth}>
                 <LoginPage login={login} />
               </ProtectedRoute>
             }

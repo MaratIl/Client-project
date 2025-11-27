@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router";
 import { Container, Row, Col, Button, Card } from "react-bootstrap";
-import { PersonCircle, HeartFill, HouseDoorFill } from "react-bootstrap-icons";
+ import { PersonCircle, HeartFill, HouseDoorFill } from "react-bootstrap-icons";
 
 function LocatairePage() {
   const [showFavorites, setShowFavorites] = useState(false);

@@ -30,14 +30,15 @@ class PropertyController {
   createProperty = async (req, res) => {
     try {
       const { user } = res.locals;
-      const newProperty = await this.propertyService.createProperty({
-        ...req.body,
-        userId: user.id,
-      });
-      return res.status(201).json(newProperty);
+      
+    console.log("User ID from token:", user.id);
+      const newProperty = await this.propertyService.createProperty(
+        req.body,
+        user.id,
+      );
+       return res.status(201).json(newProperty);
     } catch (error) {
-      console.log(error);
-      res.sendStatus(401);
+      res.status(500).json({error: error.message});
     }
   };
 

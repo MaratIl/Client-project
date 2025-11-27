@@ -10,20 +10,16 @@ const propertyController = new PropertyController(propertyService);
 propertyRouth.get('/', propertyController.findAllProperties);
 
 
-propertyRouth.post('/', propertyController.createProperty);
+propertyRouth.post('/', verifyAccessToken, propertyController.createProperty);
 propertyRouth.put('/:id', propertyController.updateProperty);
 propertyRouth.delete('/:id', propertyController.deleteProperty);
 
 
-propertyRouth.get('/favorites', propertyController.getFavorites,
-);
-propertyRouth.post('/:id/favorite', propertyController.addToFavorites,
-);
-propertyRouth.delete('/:id/favorite', propertyController.removeFromFavorites,
-);
+propertyRouth.get('/favorites', verifyAccessToken, propertyController.getFavorites);
+propertyRouth.post('/:id/favorite', verifyAccessToken, propertyController.addToFavorites);
+propertyRouth.delete('/:id/favorite', verifyAccessToken, propertyController.removeFromFavorites); 
 propertyRouth.get('/:id', propertyController.findProperty);
-propertyRouth.get('/', verifyAccessToken, propertyController.createProperty);
-propertyRouth.get('/:id', propertyController.updateProperty);
-propertyRouth.get('/:id', propertyController.deleteProperty);
+
+
 
 module.exports = propertyRouth;

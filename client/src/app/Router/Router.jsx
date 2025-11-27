@@ -22,6 +22,8 @@ function Router() {
     const respons = await axios.post("/api/auth/registration", data);
     setUser(respons.data.user);
     setAccessToken(respons.data.accessToken);
+    localStorage.setItem("token", respons.data.accessToken);
+    console.log("Токен сохранен при регистрации");
   };
 
   const login = async (e) => {
@@ -30,12 +32,15 @@ function Router() {
     const respons = await axios.post("/api/auth/login", data);
     setUser(respons.data.user);
     setAccessToken(respons.data.accessToken);
+    localStorage.setItem("token", respons.data.accessToken);
+    console.log("Токен сохранен при регистрации");
   };
 
   const logout = async () => {
     axios.delete("/api/auth/logout").then(() => {
       setUser(null);
       setAccessToken(null);
+      localStorage.removeItem("token");
     });
   };
 
@@ -45,6 +50,7 @@ function Router() {
       .then((res) => {
         setUser(res.data.user);
         setAccessToken(res.data.accessToken);
+        localStorage.setItem("token", res.data.accessToken);
       })
       .finally(() => setLoading(false));
   }, []);

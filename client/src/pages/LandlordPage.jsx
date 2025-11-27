@@ -14,7 +14,7 @@ function LandlordPage() {
 
   useEffect(() => {
     axios
-      .get("/api/properties")
+      .get("/api/property")
       .then((res) => setProperties(res.data))
       .catch((err) => console.error("Ошибка загрузки объявлений:", err));
   }, []);
@@ -26,17 +26,29 @@ function LandlordPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("1. Форма отправлена, данные:", formData);
+
+    const token = localStorage.getItem('token')
+    console.log("2. Токен из localStorage:", token ? "есть" : "отсутствует");
+    if(!token){
+      console.log("3. Токен отсутствует, прерываем");
+      return
+    }
 
     try {
+      console.log("4. Пытаемся создать объявление...");
       if (editingId) {
-        const res = await axios.put(`/api/properties/${editingId}`, formData);
+        const res = await axios.put(`/api/property/${editingId}`, formData, {headers: {Authorization: `Bearer ${token}`}});
+        console.log("5. Успех! Ответ сервера:", res.data);
         setProperties((prev) =>
           prev.map((p) => (p.id === editingId ? res.data : p))
         );
         setEditingId(null);
       } else {
-        const res = await axios.post("/api/properties", formData);
+        const res = await axios.post("/api/property", formData, { headers: {Authorization: `Bearer ${token}`}
+            });
         setProperties((prev) => [...prev, res.data]);
+        console.log("6. Объявление добавлено в состояние");
       }
 
       setFormData({
@@ -45,8 +57,12 @@ function LandlordPage() {
         addres: "",
         descriptions: "",
       });
+      console.log("7. Форма очищена");
     } catch (err) {
       console.error("Ошибка сохранения объявления:", err);
+      console.log("8.1. Response data:", err.response?.data);
+    console.log("8.2. Response status:", err.response?.status);
+    console.log("8.3. Response headers:", err.response?.headers);
     }
   };
 
@@ -62,7 +78,7 @@ function LandlordPage() {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`/api/properties/${id}`);
+      await axios.delete(`/api/property/${id}`);
       setProperties((prev) => prev.filter((p) => p.id !== id));
     } catch (err) {
       console.error("Ошибка удаления объявления:", err);
@@ -133,7 +149,7 @@ function LandlordPage() {
         </Col>
 
         <Col md={6}>
-          <h4 className="mb-3">Список моих объявлений</h4>
+          <h4 className="mb-3">Список объявлений</h4>
           {properties.length === 0 ? (
             <p>У вас пока нет объявлений.</p>
           ) : (

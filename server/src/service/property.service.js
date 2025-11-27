@@ -9,20 +9,38 @@ class PropertyService {
         return Property.findByPk(id)
     }
 
-    async createProperty(data) {
-        return Property.create(data)
+    async createProperty(data, userId) {
+      console.log("Service: createProperty вызван");
+    console.log("Service: данные:", data);
+    console.log("Service: userId:", userId);
+    try {
+        const result = await Property.create({
+            ...data, 
+            userId: userId
+        });
+        console.log("Service: Объявление создано в БД:", result);
+        return result;
+    } catch (error) {
+        console.log("Service: Ошибка при создании в БД:", error);
+        throw error;
+    }
     }
 
-    async updateProperty(id, data) {
-        const property = await Property.findByPk(id)
+    async updateProperty(id, data, userId) {
+        const property = await Property.findOne({ where: {id, userId}})
         if (!property) {
             return null
         }
         return property.update(data)
     }
 
-    async deleteProperty(id) {
-        await Property.destroy({where: {id}})
+    async deleteProperty(id,userId) {
+        const property = await Property.findOne({ where: {id, userId}})
+        if (!property) {
+            return null
+        }
+        
+        await Property.destroy({where: {id, userId}})
         return true
     }
 

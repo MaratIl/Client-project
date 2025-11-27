@@ -2,15 +2,14 @@ import React from "react";
 import Navbar from "./Navbar";
 import "./Header.module.css";
 import { Col, Container, Row } from "react-bootstrap";
+import styles from './Header.module.css'
 
 function Header({ user, logout }) {
   return (
-    <>
-    <header>
-      <div className="title">Регистрация-скелет</div>
-      <Navbar user={user} logout={logout} />
+    <header className={styles.header}>
+      <div className={styles.logo}>Регистрация-скелет</div>
+      <Navbar className={styles.navMenu} user={user} logout={logout} />
     </header>
-    </>
   );
 }
 

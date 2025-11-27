@@ -12,7 +12,7 @@ import { useEffect } from "react";
 function Router() {
   const [user, setUser] = useState(null);
   console.log(user);
-  
+
   const registration = async (e) => {
     e.preventDefault();
     const data = Object.fromEntries(new FormData(e.target));

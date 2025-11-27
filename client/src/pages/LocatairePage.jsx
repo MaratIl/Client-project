@@ -126,7 +126,7 @@ function LocatairePage() {
                   >
                     Добавить в избранное
                   </Button>
-                  )}
+                  )} 
                 </Card.Body>
               </Card>
             </Col>
@@ -136,5 +136,5 @@ function LocatairePage() {
     </Container>
   );
 }
-
+// Ghj
 export default LocatairePage;

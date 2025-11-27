@@ -12,7 +12,7 @@ module.exports = {
           addres: 'Ленина 12',
           userId: null,
           image:
-            'https://gratisography.com/wp-content/uploads/2018/05/gratisography-234H-free-stock-photo-1170x780.jpg',
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0TQy3qoMk0GmRf8iYT_aII518GaAK-MYfFg&s',
           descriptions:
             'Просторный двухэтажный дом для аренды с современным ремонтом и большим садом. Идеально для семьи',
           createdAt: new Date(),
@@ -23,7 +23,7 @@ module.exports = {
           price: 25000,
           addres: 'Центральная 45, кв. 18',
           image:
-            'https://gratisography.com/wp-content/uploads/2018/05/gratisography-234H-free-stock-photo-1170x780.jpg',
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0TQy3qoMk0GmRf8iYT_aII518GaAK-MYfFg&s',
           userId: null,
           descriptions:
             'Светлая трехкомнатная квартира для долгосрочной аренды в новом жилом комплексе',
@@ -35,7 +35,7 @@ module.exports = {
           price: 12000,
           addres: 'Студенческая 23, к. 4',
           image:
-            'https://gratisography.com/wp-content/uploads/2018/05/gratisography-234H-free-stock-photo-1170x780.jpg',
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0TQy3qoMk0GmRf8iYT_aII518GaAK-MYfFg&s',
           userId: null,
           descriptions:
             'Уютная комната в современной трехкомнатной квартире для аренды. Все соседи - студенты',
@@ -47,7 +47,7 @@ module.exports = {
           price: 18000,
           addres: 'Проспект Мира 67, кв. 304',
           image:
-            'https://gratisography.com/wp-content/uploads/2018/05/gratisography-234H-free-stock-photo-1170x780.jpg',
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0TQy3qoMk0GmRf8iYT_aII518GaAK-MYfFg&s',
           userId: null,
           descriptions:
             'Уютная однокомнатная квартира для аренды с готовым ремонтом и всей необходимой техникой',
@@ -59,7 +59,7 @@ module.exports = {
           price: 8000,
           addres: 'Рабочая 15, к. 7',
           image:
-            'https://gratisography.com/wp-content/uploads/2018/05/gratisography-234H-free-stock-photo-1170x780.jpg',
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0TQy3qoMk0GmRf8iYT_aII518GaAK-MYfFg&s',
           userId: null,
           descriptions:
             'Комната в двухкомнатной квартире для аренды. Подходит для одного человека, рядом метро',

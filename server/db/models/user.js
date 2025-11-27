@@ -9,9 +9,14 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      this.hasMany(models.Property, { foreignKey: 'userId' })
-        this.hasOne(models.Passport, { foreignKey: 'userId' })
-        this.hasMany(models.Favorites, { foreignKey: 'userId' });
+      this.hasMany(models.Property, { foreignKey: 'userId', as: 'property' });
+      this.hasOne(models.Passport, { foreignKey: 'userId' });
+      this.belongsToMany(models.Property, {
+        through: 'Favorites',
+        foreignKey: 'userId',
+        as: 'favorites',
+      });
+
       // define association here
     }
   }
@@ -20,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
       name: DataTypes.STRING,
       email: DataTypes.STRING,
       hashpass: DataTypes.STRING,
-      type: DataTypes.STRING,
+      type:DataTypes.STRING
     },
     {
       sequelize,

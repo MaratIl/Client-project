@@ -9,10 +9,6 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
-<<<<<<< HEAD
-     
-=======
->>>>>>> main
       },
       name: {
         type: Sequelize.STRING,

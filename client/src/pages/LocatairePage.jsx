@@ -12,12 +12,12 @@ function LocatairePage() {
 
   useEffect(() => {
     axios
-      .get("/api/properties")
+      .get("/api/property")
       .then((res) => setAllProperties(res.data))
       .catch((err) => console.error("Ошибка загрузки объектов:", err));
 
     axios
-      .get("/api/properties/favorites")
+      .get("/api/property/favorites")
       .then((res) => setFavoriteProperties(res.data))
       .catch((err) => console.error("Ошибка загрузки избранного:", err));
   }, []);
@@ -30,8 +30,8 @@ function LocatairePage() {
 
   const addToFavorites = async (id) => {
     try {
-      await axios.post(`/api/properties/${id}/favorite`);
-      const res = await axios.get("/api/properties/favorites");
+      await axios.post(`/api/property/${id}/favorite`);
+      const res = await axios.get("/api/property/favorites");
       setFavoriteProperties(res.data);
       setShowFavorites(true);
     } catch (err) {

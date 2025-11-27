@@ -3,6 +3,6 @@ module.exports = {
     expiresIn: `${1000 * 60 * 60 * 24 * 7}`,
   },
   access: {
-    expiresIn: `${1000 * 5}`
+    expiresIn: `${1000 * 5000}`
   }
 }

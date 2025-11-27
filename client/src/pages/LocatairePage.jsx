@@ -5,6 +5,7 @@ import { Container, Row, Col, Button, Card } from "react-bootstrap";
 import { PersonCircle, HeartFill, HouseDoorFill } from "react-bootstrap-icons";
 
 function LocatairePage({ user }) {
+  const [aciveTab, setActiveTab] = useState('All')
   const [showFavorites, setShowFavorites] = useState(false);
   const [allProperties, setAllProperties] = useState([]);
   const [favoriteProperties, setFavoriteProperties] = useState([]);

@@ -29,6 +29,7 @@
 
 // export default Navbar;
 import React from "react";
+import { Button } from "react-bootstrap";
 import Nav from "react-bootstrap/Nav";
 import { Link } from "react-router";
 
@@ -49,16 +50,20 @@ function Navbar({ user, logout }) {
           </Nav.Link>
         </>
       )}
+      {!!user && (
 
-      {user && (
         <>
-          <span className="text-light me-3">
-            Привет,&nbsp;
-            <strong>{user.name}</strong>
-          </span>
-          <Nav.Link onClick={logout} className="text-warning">
-            Выйти
-          </Nav.Link>
+        {user.type === "landlord" && (
+            <Button as={Link} to="/landlord" className="me-2">
+              Мои объявления
+            </Button>
+          )}
+          {user.type === "locataire" && (
+            <Button as={Link} to="/locataire" className="me-2">
+              Поиск жилья
+            </Button>
+          )}
+          <Button onClick={logout}>Выйти</Button>
         </>
       )}
     </Nav>

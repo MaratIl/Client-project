@@ -5,11 +5,16 @@ const app = express();
 const cookieParser = require('cookie-parser');
 const propertyRouth = require('./routes/property.route');
 const cardRouter = require("./routes/card.route")
+const path = require('path')
 
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(express.static(path.join(__dirname, '..', 'dist')));
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'dist', 'index.html'));
+});
 
 app.use('/api/auth', authRouth);
 app.use('/api/property', propertyRouth)

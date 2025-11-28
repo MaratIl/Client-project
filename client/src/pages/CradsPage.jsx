@@ -13,11 +13,13 @@ function CardsPage() {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
 
-  const { id } = useParams();
-
+  
+ const { id } = useParams();
+ 
   useEffect(() => {
     const fetchCard = async () => {
       try {
+        
         setLoading(true);
         const response = await axios.get(`/api/card/${id}`);
         setCard(response.data);

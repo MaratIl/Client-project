@@ -7,6 +7,7 @@ function LocatairePage({ user, favoriteProperties, removeFromFavorites }) {
   const [activeTab, setActiveTab] = useState("favorites");
   const [allProperties, setAllProperties] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [messages, setMessages] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -21,7 +22,34 @@ function LocatairePage({ user, favoriteProperties, removeFromFavorites }) {
         console.error("Ошибка загрузки объектов:", err);
         setLoading(false);
       });
+
+    loadMessages(); //
   }, []);
+
+  const loadMessages = async () => {
+    const token = localStorage.getItem("token");
+    try {
+      const res = await axios.get("/api/property/messages", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setMessages(res.data);
+    } catch (err) {
+      console.error("Ошибка загрузки сообщений:", err);
+
+      setMessages([]);
+    }
+  };
+
+  const handleDeleteMessage = (messageId) => {
+    setMessages(messages.filter((msg) => msg.id !== messageId));
+  };
+
+  const handleDeleteAllMessages = () => {
+    setMessages([]);
+    alert("Все сообщения удалены");
+  };
 
   if (loading) {
     return <div>Загрузка...</div>;
@@ -43,7 +71,10 @@ function LocatairePage({ user, favoriteProperties, removeFromFavorites }) {
         onSelect={(tab) => setActiveTab(tab)}
         className="mb-4"
       >
-        <Tab eventKey="favorites" title={`Избранные (${favoriteProperties.length})`}>
+        <Tab
+          eventKey="favorites"
+          title={`Избранные варианты (${favoriteProperties.length})`}
+        >
           <Row>
             {favoriteProperties.length === 0 ? (
               <Col>
@@ -80,6 +111,59 @@ function LocatairePage({ user, favoriteProperties, removeFromFavorites }) {
                 </Col>
               ))
             )}
+          </Row>
+        </Tab>
+        <Tab eventKey="messages" title={`Сообщения (${messages.length})`}>
+          <Row>
+            <Col>
+              {messages.length === 0 ? (
+                <div>
+                  <p>У вас пока нет сообщений.</p>
+                  <p className="text-muted">
+                    Напишите владельцам недвижимости на главной странице!
+                  </p>
+                </div>
+              ) : (
+                <div>
+                  {messages.map((message) => (
+                    <Card key={message.id} className="mb-3">
+                      <Card.Body>
+                        <div className="d-flex justify-content-between align-items-start">
+                          <div>
+                            <Card.Title className="h6">
+                              Объект: {message.propertyType}
+                            </Card.Title>
+                            <Card.Text>{message.message}</Card.Text>
+                            <Card.Text>
+                              <small className="text-muted">
+                                Отправлено:{" "}
+                                {new Date(message.timestamp).toLocaleString()}
+                              </small>
+                            </Card.Text>
+                          </div>
+                          <Button
+                            variant="outline-danger"
+                            size="sm"
+                            onClick={() => handleDeleteMessage(message.id)}
+                          >
+                            ✕
+                          </Button>
+                        </div>
+                      </Card.Body>
+                    </Card>
+                  ))}
+
+                  <Button
+                    variant="danger"
+                    size="sm"
+                    onClick={handleDeleteAllMessages}
+                    className="mt-3"
+                  >
+                    Удалить все сообщения
+                  </Button>
+                </div>
+              )}
+            </Col>
           </Row>
         </Tab>
       </Tabs>

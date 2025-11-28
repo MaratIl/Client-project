@@ -11,6 +11,7 @@ import CradsPage from "../../pages/CradsPage";
 import { setAccessToken } from "../../shared/axiosinstance";
 import ProtectedRoute from "../../shared/ProtectedRoute";
 import Layout from "../Layout";
+import Page1 from "../../pages/Page1";
 
 function Router() {
   const [user, setUser] = useState(null);
@@ -142,6 +143,30 @@ function Router() {
     return <div>Загрузка...</div>;
   }
 
+  const sendMessage = async (property, messageText) => {
+  const token = localStorage.getItem("token");
+  try {
+    await axios.post(
+      "/api/property/messages",
+      {
+        propertyId: property.id,
+        message: messageText,
+        propertyType: property.type,
+       propertyAddress: property.addres,
+        propertyPrice: property.price,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+  } catch (err) {
+    console.error("Ошибка отправки сообщения:", err);
+    throw err;
+  }
+};
+
   return (
     <BrowserRouter>
       <Routes>
@@ -164,6 +189,7 @@ function Router() {
                 removeFromFavorites={removeFromFavorites}
                 isFavorite={isFavorite}
                 favoriteProperties={favoriteProperties}
+                sendMessage={sendMessage}
               />
             }
           />
@@ -216,6 +242,12 @@ function Router() {
               </ProtectedRoute>
             }
           />
+        </Route>
+        <Route
+          path="/page1"
+          element={<Page1 properties={properties} user={user} />}
+        >
+          <></>
         </Route>
       </Routes>
     </BrowserRouter>

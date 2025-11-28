@@ -14,6 +14,7 @@ function HomePage({
   removeFromFavorites,
   isFavorite,
   favoriteProperties,
+  sendMessage
 }) {
   const [properties, setProperties] = useState([]);
   const mapRef = useRef(null);
@@ -25,7 +26,7 @@ function HomePage({
     axios.get("/api/property").then(({ data }) => setProperties(data));
   }, []);
  const handleCardClick = (propertyId) => {
-    navigate(`/card/${propertyId}`);
+    navigate(`/api/card/${propertyId}`);
   };
   console.log(properties);
 
@@ -168,11 +169,7 @@ function HomePage({
                 <h2>Добро пожаловать в сервис аренды!</h2>
                 <p className="text-muted mb-0">
                   Здесь вы можете найти подходящий объект недвижимости и
-                  добавить его в избранное.
-                  {favoriteProperties.length > 0 && (
-                  <span> У вас {favoriteProperties.length} избранных объектов.</span>
-                )}
-                </p>
+                  добавить его в избранное.</p>
               </Col>
             </Row>
           )}
@@ -194,9 +191,10 @@ function HomePage({
                   property={property}
                   addToFavorites={addToFavorites}
                   removeFromFavorites={removeFromFavorites}
+                  onCardClick={handleCardClick}
                   isFavorite={isFavorite(property.id)}
                   user={user}
-                  onCardClick={handleCardClick}
+                  sendMessage={sendMessage}
                 />
               </Col>
             );

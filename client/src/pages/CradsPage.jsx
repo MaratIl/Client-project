@@ -19,7 +19,7 @@ function CardsPage() {
     const fetchCard = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(`api/card/${id}`);
+        const response = await axios.get(`/api/card/${id}`);
         setCard(response.data);
       } catch (err) {
         setError("Ошибка при загрузке");

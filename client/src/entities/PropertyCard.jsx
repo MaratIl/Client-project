@@ -12,6 +12,9 @@ function PropertyCard({
   const [messageText, setMessageText] = useState("");
 
   const handleFavoriteClick = () => {
+    
+   
+   
     if (isFavorite) {
       removeFromFavorites(property.id);
     } else {

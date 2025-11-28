@@ -6,6 +6,7 @@ import { useNavigate } from "react-router";
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 import styles from "../shared/style/Homepage.module.css";
+import CradsPage from "./CradsPage";
 import Form from "react-bootstrap/Form";
 
 function HomePage({
@@ -31,8 +32,8 @@ function HomePage({
       })
       .then(({ data }) => setProperties(data));
   }, []);
-  const handleCardClick = (propertyId) => {
-    navigate(`api/card/${propertyId}`); // Переход на страницу карточки
+ const handleCardClick = (propertyId) => {
+    navigate(`/api/card/${propertyId}`);
   };
   console.log(properties);
 
@@ -237,6 +238,7 @@ function HomePage({
                   property={property}
                   addToFavorites={addToFavorites}
                   removeFromFavorites={removeFromFavorites}
+                  onCardClick={handleCardClick}
                   isFavorite={isFavorite(property.id)}
                   user={user}
                   sendMessage={sendMessage}
